@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 while ((readSize = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, readSize);
                     sumSize += readSize;
+                    //累計用sumSize(整數)，最後以sum(小數);累計0~100
                     sum = (sumSize / fullSize) * 100; // 累計讀取進度
 
                     publishProgress((int)sum);
