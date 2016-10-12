@@ -63,12 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 conn.connect();
                 inputStream = conn.getInputStream();
                 double fullSize = conn.getContentLength(); // 總長度
+                int sumSize = 0;
                 byte[] buffer = new byte[64]; // buffer ( 每次讀取長度 )
                 int readSize = 0; // 當下讀取長度
                 double sum = 0;
                 while ((readSize = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, readSize);
-                    sum += (readSize / fullSize) * 100; // 累計讀取進度
+                    sumSize += readSize;
+                    sum = (sumSize / fullSize) * 100; // 累計讀取進度
+
                     publishProgress((int)sum);
                 }
                 // 將 outputStream 轉 byte[] 再轉 Bitmap
